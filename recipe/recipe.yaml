@@ -92,9 +92,6 @@ outputs:
         - scikit-build-core
         - pybind11
         - numpy >= 1.19.0
-      run:
-        - python
-        - numpy
 
     tests:
       - python:
