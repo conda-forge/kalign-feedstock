@@ -77,7 +77,7 @@ outputs:
 
     build:
       script:
-        - pip install . -vv --no-deps
+        - ${PYTHON} -m pip install . -vv --no-deps
 
     requirements:
       build:
