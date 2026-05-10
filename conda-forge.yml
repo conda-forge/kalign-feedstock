@@ -7,7 +7,6 @@ conda_build:
   error_overlinking: true
   pkg_format: '2'
 conda_forge_output_validation: true
-build_platform:
-  linux_aarch64: linux_64
-  osx_arm64: osx_64
-test: native_and_emulated
+provider:
+  linux_aarch64: default
+  osx_arm64: default
