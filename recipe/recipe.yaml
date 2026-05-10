@@ -20,9 +20,15 @@ recipe:
 source:
   url: https://github.com/TimoLassmann/kalign/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 983bfd7da76010d59c3de3bae3d977cac78642c5eb061009dd12b11b9db5190d
+  patches:
+    # Allow overriding the hardcoded Homebrew libomp path on macOS and
+    # restrict the workaround to AppleClang so other compilers fall back
+    # to the standard OpenMP detection path.
+    # see: https://github.com/TimoLassmann/kalign/pull/65
+    - patches/macos-openmp-config.patch
 
 build:
-  number: 1
+  number: 2
   skip:
     - win
 
@@ -77,7 +83,7 @@ outputs:
 
     build:
       script:
-        - pip install . -vv --no-deps
+        - ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation
 
     requirements:
       build:
@@ -92,9 +98,6 @@ outputs:
         - scikit-build-core
         - pybind11
         - numpy >= 1.19.0
-      run:
-        - python
-        - numpy
 
     tests:
       - python:
