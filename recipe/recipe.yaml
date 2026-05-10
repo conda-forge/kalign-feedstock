@@ -20,6 +20,9 @@ recipe:
 source:
   url: https://github.com/TimoLassmann/kalign/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 983bfd7da76010d59c3de3bae3d977cac78642c5eb061009dd12b11b9db5190d
+  patches:
+    # see: https://github.com/TimoLassmann/kalign/pull/65
+    - patches/macos-openmp-config.patch
 
 build:
   number: 2
