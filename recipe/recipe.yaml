@@ -28,7 +28,7 @@ source:
     - patches/macos-openmp-config.patch
 
 build:
-  number: 2
+  number: 3
   skip:
     - win
 
@@ -100,6 +100,18 @@ outputs:
         - numpy >= 1.19.0
 
     tests:
+      - files:
+          source:
+            - tests/
+        requirements:
+          run:
+            - pytest
+            - pytest-cov
+            - pytest-benchmark
+            - scikit-bio
+            - biopython
+        script:
+          - pytest tests/python -vv
       - python:
           imports:
             - kalign
