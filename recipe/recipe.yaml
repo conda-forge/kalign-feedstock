@@ -102,7 +102,7 @@ outputs:
     tests:
       - files:
           source:
-            - tests/python/
+            - tests/
         requirements:
           run:
             - pytest
