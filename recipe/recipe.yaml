@@ -25,6 +25,7 @@ build:
   number: 0
   skip:
     - win
+    - match(python, "<3.11")
 
 outputs:
 
