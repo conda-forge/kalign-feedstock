@@ -20,12 +20,6 @@ recipe:
 source:
   url: https://github.com/TimoLassmann/kalign/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 4af0af2764509c3e83d501c6d8260b8c69bd8fd02456ed41c18583a23f4781d7
-  patches:
-    # Allow overriding the hardcoded Homebrew libomp path on macOS and
-    # restrict the workaround to AppleClang so other compilers fall back
-    # to the standard OpenMP detection path.
-    # see: https://github.com/TimoLassmann/kalign/pull/65
-    - patches/macos-openmp-config.patch
 
 build:
   number: 0
@@ -54,9 +48,6 @@ outputs:
         - ${{ compiler('cxx') }}
         - make
         - cmake
-      host:
-        - if: osx
-          then: llvm-openmp
       run_exports:
         - ${{ pin_subpackage('kalign', upper_bound='x') }}
 
