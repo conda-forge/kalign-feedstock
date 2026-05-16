@@ -11,7 +11,7 @@
 #
 
 context:
-  version: 3.5.1
+  version: "3.6.0"
 
 recipe:
   name: kalign-split
@@ -19,18 +19,13 @@ recipe:
 
 source:
   url: https://github.com/TimoLassmann/kalign/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 983bfd7da76010d59c3de3bae3d977cac78642c5eb061009dd12b11b9db5190d
-  patches:
-    # Allow overriding the hardcoded Homebrew libomp path on macOS and
-    # restrict the workaround to AppleClang so other compilers fall back
-    # to the standard OpenMP detection path.
-    # see: https://github.com/TimoLassmann/kalign/pull/65
-    - patches/macos-openmp-config.patch
+  sha256: 4af0af2764509c3e83d501c6d8260b8c69bd8fd02456ed41c18583a23f4781d7
 
 build:
-  number: 3
+  number: 0
   skip:
     - win
+    - match(python, "<3.11")
 
 outputs:
 
@@ -54,9 +49,6 @@ outputs:
         - ${{ compiler('cxx') }}
         - make
         - cmake
-      host:
-        - if: osx
-          then: llvm-openmp
       run_exports:
         - ${{ pin_subpackage('kalign', upper_bound='x') }}
 
