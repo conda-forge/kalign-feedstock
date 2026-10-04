@@ -22,7 +22,7 @@ source:
   sha256: 4af0af2764509c3e83d501c6d8260b8c69bd8fd02456ed41c18583a23f4781d7
 
 build:
-  number: 0
+  number: 1
   skip:
     - win
     - match(python, "<3.11")
