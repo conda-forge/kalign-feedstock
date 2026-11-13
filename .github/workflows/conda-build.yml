@@ -22,8 +22,8 @@ jobs:
       max-parallel: 50
       matrix:
         include:
-          - CONFIG: linux_64_channel_sourcesconda-forgeconda-forgelabelpython_rcpython3.15.____cp315
-            CONFIG_SHORT: linux_64_channel_sourcesconda-forgeconda_h3d149755
+          - CONFIG: linux_64_python3.11.____cpython
+            CONFIG_SHORT: linux_64_python3.11.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -35,8 +35,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_channel_sourcesconda-forgepython3.11.____cpython
-            CONFIG_SHORT: linux_64_channel_sourcesconda-forgepytho_hda691198
+          - CONFIG: linux_64_python3.12.____cpython
+            CONFIG_SHORT: linux_64_python3.12.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -48,8 +48,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_channel_sourcesconda-forgepython3.12.____cpython
-            CONFIG_SHORT: linux_64_channel_sourcesconda-forgepytho_h39cb0187
+          - CONFIG: linux_64_python3.13.____cp313
+            CONFIG_SHORT: linux_64_python3.13.____cp313
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -61,8 +61,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_channel_sourcesconda-forgepython3.13.____cp313
-            CONFIG_SHORT: linux_64_channel_sourcesconda-forgepytho_h0fc1e113
+          - CONFIG: linux_64_python3.14.____cp314
+            CONFIG_SHORT: linux_64_python3.14.____cp314
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -74,8 +74,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_channel_sourcesconda-forgepython3.14.____cp314
-            CONFIG_SHORT: linux_64_channel_sourcesconda-forgepytho_h796430ae
+          - CONFIG: linux_64_python3.15.____cp315
+            CONFIG_SHORT: linux_64_python3.15.____cp315
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -87,8 +87,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_channel_sourcesconda-forgeconda-forgelabelpython_rcpython3.15.____cp315
-            CONFIG_SHORT: linux_aarch64_channel_sourcesconda-forge_h7fab9775
+          - CONFIG: linux_aarch64_python3.11.____cpython
+            CONFIG_SHORT: linux_aarch64_python3.11.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -100,8 +100,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_channel_sourcesconda-forgepython3.11.____cpython
-            CONFIG_SHORT: linux_aarch64_channel_sourcesconda-forge_h8236412a
+          - CONFIG: linux_aarch64_python3.12.____cpython
+            CONFIG_SHORT: linux_aarch64_python3.12.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -113,8 +113,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_channel_sourcesconda-forgepython3.12.____cpython
-            CONFIG_SHORT: linux_aarch64_channel_sourcesconda-forge_h3e54468e
+          - CONFIG: linux_aarch64_python3.13.____cp313
+            CONFIG_SHORT: linux_aarch64_python3.13.____cp313
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -126,8 +126,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_channel_sourcesconda-forgepython3.13.____cp313
-            CONFIG_SHORT: linux_aarch64_channel_sourcesconda-forge_h38a75925
+          - CONFIG: linux_aarch64_python3.14.____cp314
+            CONFIG_SHORT: linux_aarch64_python3.14.____cp314
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -139,8 +139,8 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_channel_sourcesconda-forgepython3.14.____cp314
-            CONFIG_SHORT: linux_aarch64_channel_sourcesconda-forge_hb122908b
+          - CONFIG: linux_aarch64_python3.15.____cp315
+            CONFIG_SHORT: linux_aarch64_python3.15.____cp315
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
@@ -162,6 +162,8 @@ jobs:
       run: |
         if [[ "$(uname -m)" == "x86_64" ]]; then
           docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+        elif [[ "$(uname -m)" == "aarch64" ]]; then
+          docker run --rm --privileged --entrypoint /opt/docker/bin/register-binfmt ${{ matrix.DOCKER_IMAGE }} aarch64
         fi
 
     - name: Build on Linux
@@ -309,7 +311,7 @@ jobs:
         fi
 
     - name: Store conda build artifacts
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.BLD_ARTIFACT_PATH != '' }}
       with:
         name: ${{ steps.prepare-artifacts.outputs.BLD_ARTIFACT_NAME }}
@@ -319,7 +321,7 @@ jobs:
       continue-on-error: true
 
     - name: Store conda work directory artifacts
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.WRK_ARTIFACT_PATH != '' }}
       with:
         name: ${{ steps.prepare-artifacts.outputs.WRK_ARTIFACT_NAME }}
@@ -329,7 +331,7 @@ jobs:
       continue-on-error: true
 
     - name: Store conda build environment artifacts
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       # only relevant if build failed, see above
       if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.ENV_ARTIFACT_PATH != '' }}
       with:
