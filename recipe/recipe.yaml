@@ -121,5 +121,6 @@ about:
 extra:
   feedstock-name: kalign
   recipe-maintainers:
+    - TimoLassmann
     - sdvillal
     - Emrys-Merlin
