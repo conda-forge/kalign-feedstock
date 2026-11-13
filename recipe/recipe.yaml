@@ -8,6 +8,8 @@
 #   - consolidates name to kalign
 #   - reports new Apache license
 #   - adds an output for kalign-python
+#   - kalign3 (alias for bioconda users, kalign >=3,<4) was built up to 3.6.0;
+#     those builds remain on conda-forge, kalign 4 and later is only "kalign"
 #
 
 context:
@@ -51,18 +53,6 @@ outputs:
         - cmake
       run_exports:
         - ${{ pin_subpackage('kalign', upper_bound='x') }}
-
-    tests:
-      - script:
-          - kalign -v
-
-  # kalign3 synonym to avoid breaking existing users of the bioconda package
-  - package:
-      name: kalign3
-
-    requirements:
-      run:
-        - kalign >=3,<4
 
     tests:
       - script:
