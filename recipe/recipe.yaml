@@ -8,10 +8,12 @@
 #   - consolidates name to kalign
 #   - reports new Apache license
 #   - adds an output for kalign-python
+#   - kalign3 (alias for bioconda users, kalign >=3,<4) was built up to 3.6.0;
+#     those builds remain on conda-forge, kalign 4 and later is only "kalign"
 #
 
 context:
-  version: "3.6.0"
+  version: "4.0.0"
 
 recipe:
   name: kalign-split
@@ -19,10 +21,10 @@ recipe:
 
 source:
   url: https://github.com/TimoLassmann/kalign/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 4af0af2764509c3e83d501c6d8260b8c69bd8fd02456ed41c18583a23f4781d7
+  sha256: 3292ac61a6d2af195e5100650b26cf87dcab75d14167ce39d5b4d5b78ebe5b77
 
 build:
-  number: 1
+  number: 0
   skip:
     - win
     - match(python, "<3.11")
@@ -51,18 +53,6 @@ outputs:
         - cmake
       run_exports:
         - ${{ pin_subpackage('kalign', upper_bound='x') }}
-
-    tests:
-      - script:
-          - kalign -v
-
-  # kalign3 synonym to avoid breaking existing users of the bioconda package
-  - package:
-      name: kalign3
-
-    requirements:
-      run:
-        - kalign >=3,<4
 
     tests:
       - script:
